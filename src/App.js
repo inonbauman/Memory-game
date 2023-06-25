@@ -10,17 +10,20 @@ const cardImages = [
   { "src": "/img/menachem_begin.png", matced: false},
   { "src": "/img/Moshe_Sharett.png", matced: false},
 ]
+
 function App() {
 const [cards, setCards]= useState([])
 const [choiceOne, setChoiceOne] = useState(null)
 const [choiceTwo, setChoiceTwo] = useState(null)
 const [disabled, setdisabled] = useState(false)
-// shoffle cards
-const shuffleCards = () => {
-  const shuffleCards = [...cardImages, ...cardImages]
-  .sort(() => Math.random() - 0.5)
-  .map((card) => ({...card, id: Math.random() }))
 
+// shoffle cards using Fisher-Yates algorithm
+const shuffleCards = () => {
+  let shuffleCards = [...cardImages, ...cardImages].map((card) => ({...card, id: Math.random() }))
+  for (let i = shuffleCards.length - 1; i > 0; i--) {
+      let j = Math.floor(Math.random() * (i + 1));
+      [shuffleCards[i], shuffleCards[j]] = [shuffleCards[j], shuffleCards[i]];
+  }
   setCards(shuffleCards)
 }
 
